@@ -1,6 +1,7 @@
-package ezbase; /**
+/**
  * Created by LeeZhao on 16/10/11.
  **/
+package ezbase;
 
 import org.junit.Before;
 import org.springframework.context.ApplicationContext;
