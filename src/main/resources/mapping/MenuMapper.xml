@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ezbase.system.mapper.MenuMapper">
+    <resultMap type="Menu" id="baseMap">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="sort" property="sort"/>
+        <result column="href" property="href"/>
+        <result column="remarks" property="remarks"/>
+        <result column="useable_flag" property="useableFlag"/>
+        <result column="del_flag" property="delFlag"/>
+    </resultMap>
+
+    <select id="getById" resultMap="baseMap">
+        select * from sys_menu where id=#{id} and del_flag='0'
+    </select>
+
+    <insert id="insert" parameterType="Menu">
+        insert into sys_menu (id,name,parent_id,sort,href,remarks,useable_flag,del_flag) values (
+        #{id},#{name},#{parentId},#{sort},#{href},#{remarks},#{useableFlag},#{delFlag}
+        )
+    </insert>
+
+    <delete id="deleteById">
+        delete from sys_user where id=#{id}
+    </delete>
+
+    <select id="getMenusByRoleId" resultMap="baseMap">
+        select m.* from sys_role_menu r_m
+        left join sys_menu m
+        on m.id = r_m.menu_id
+        where r_m.role_id=#{id} and m.del_flag='0'
+    </select>
+
+</mapper>

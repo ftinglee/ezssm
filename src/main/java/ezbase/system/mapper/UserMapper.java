@@ -1,7 +1,16 @@
-/**
- * Created by LeeZhao on 16/10/14.
- **/
 package ezbase.system.mapper;
 
-public interface UserMapper {
+import ezbase.system.model.Role;
+import ezbase.system.model.User;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
+public interface UserMapper extends IMapper<User> {
+
+    User getByUsername(String username);
+
+    Integer deleteUserRoles(String userId);
+
+    Integer configRoles(@Param("userId") String userId,@Param("roles") List<String> roles);
 }

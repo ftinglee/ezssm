@@ -2,17 +2,48 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ezbase.system.Mapper">
-    <resultMap type="ezbase.system.model.User" id="usermap">
+<mapper namespace="ezbase.system.mapper.UserMapper">
+    <resultMap type="User" id="baseMap">
         <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
         <result column="name" property="name"/>
+        <result column="email" property="email"/>
+        <result column="remarks" property="remarks"/>
+        <result column="login_flag" property="loginFlag"/>
+        <result column="del_flag" property="delFlag"/>
+        <collection property="roles" ofType="Role" column="id"
+                    select="ezbase.system.mapper.RoleMapper.getRolesByUserId"/>
     </resultMap>
-    <select id="getUser" resultMap="usermap">
-        select * from user
+
+    <select id="getById" resultMap="baseMap">
+        select * from sys_user where id=#{id} del_flag='0'
     </select>
-    <insert id="insert">
-        insert into user (id, name) values (
-        #{id}, #{name}
+
+    <insert id="insert" parameterType="User">
+        insert into sys_user (id,username,password,salt,name,email,remarks,login_flag,del_flag) values (
+        #{id}, #{username},md5(#{password}), #{salt},#{name}, #{email},#{remarks},#{loginFlag},#{delFlag}
+        )
+    </insert>
+
+    <delete id="deleteById">
+        delete from sys_user where id=#{id}
+    </delete>
+
+    <select id="getByUsername" resultMap="baseMap">
+        select * from sys_user where username=#{username} and del_flag='0'
+    </select>
+
+    <delete id="deleteUserRoles">
+        delete from sys_user_role where user_id=#{userId}
+    </delete>
+
+    <insert id="configRoles">
+        insert into sys_user_role (user_id,role_id) values (
+        <foreach collection="roles" item="item" index="index" separator="," >
+            #{userId},#{item}
+        </foreach>
         )
     </insert>
 
