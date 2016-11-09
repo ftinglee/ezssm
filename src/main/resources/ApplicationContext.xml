@@ -14,7 +14,12 @@
     <context:annotation-config />
 
     <!--使用注解扫描器,自动扫描ezbase.system下的使用注解的Class-->
-    <context:component-scan base-package="ezbase.system"/>
+    <context:component-scan base-package="ezbase.system" use-default-filters="false">
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
 
     <!-- 配置sqlSessionFactory -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
