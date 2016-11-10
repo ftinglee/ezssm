@@ -9,7 +9,32 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!--开启mvc注解-->
-    <mvc:annotation-driven enable-matrix-variables="true"/>
+    <mvc:annotation-driven enable-matrix-variables="true">
+        <!--配置消息转换器,解析@ResponseBody-->
+        <mvc:message-converters register-defaults="true">
+            <!-- 使用号称最快的json解析器的fastjson来对response body转换 -->
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+                <property name="fastJsonConfig">
+                    <bean class="com.alibaba.fastjson.support.config.FastJsonConfig">
+                        <property name="serializerFeatures">
+                            <list>
+                                <value>WriteMapNullValue</value>
+                                <value>QuoteFieldNames</value>
+                                <value>WriteDateUseDateFormat</value>
+                            </list>
+                        </property>
+                        <property name="dateFormat" value="yyyy-MM-dd HH:mm:ss"/>
+                    </bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
     <!-- 开启controller注解支持 ,并且支持控制器增强advice-->
     <context:component-scan base-package="ezbase.system" use-default-filters="false">
@@ -26,13 +51,40 @@
     <mvc:resources mapping="/lib/**" location="/lib/" cache-period="72000"/>
     <mvc:resources mapping="/css/**" location="/css/" cache-period="72000"/>
     <mvc:resources mapping="/img/**" location="/img/" cache-period="216000"/>
+    <!--注意:这里不采用Web应用服务器默认的Servlet处理,使用上面的配置的spring mvc提供的静态资源映射-->
+    <!--<mvc:default-servlet-handler />-->
 
-    <!--默认的视图解析器-->
-    <bean id="defaultViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="contentType" value="text/html"/>
-        <property name="prefix" value="/WEB-INF/view/"/>
-        <property name="suffix" value=".jsp"/>
+    <!-- 视图解析器- -->
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="contentNegotiationManager">
+            <bean class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+                <property name="defaultContentType" value="text/html" />
+                <property name="favorPathExtension" value="false" />
+                <property name="favorParameter" value="false" />
+                <property name="ignoreAcceptHeader" value="false" />
+                <property name="mediaTypes">
+                    <value>
+                        html=text/html
+                        json=application/json
+                        *=*/*
+                    </value>
+                </property>
+            </bean>
+        </property>
+        <property name="viewResolvers">
+            <list>
+                <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+                    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+                    <property name="contentType" value="text/html"/>
+                    <property name="prefix" value="/WEB-INF/view/"/>
+                    <property name="suffix" value=".jsp"/>
+                </bean>
+            </list>
+        </property>
+        <property name="defaultViews">
+            <list>
+                <bean class="com.alibaba.fastjson.support.spring.FastJsonJsonView" />
+            </list>
+        </property>
     </bean>
-
 </beans>
