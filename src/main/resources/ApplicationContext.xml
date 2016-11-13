@@ -10,11 +10,11 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <!-- 启用注解 -->
-    <context:annotation-config />
+    <!-- 启用注解,由于配置了context:component-scan,所以这里就可以省略了 -->
+    <!--<context:annotation-config />-->
 
-    <!--使用注解扫描器,自动扫描ezbase.system下的使用注解的Class-->
-    <context:component-scan base-package="ezbase.system" use-default-filters="false">
+    <!--使用注解扫描器,自动扫描ezbase.system下的使用注解的Class,注意这里use-default-filters="true"-->
+    <context:component-scan base-package="ezbase.system" use-default-filters="true">
         <context:exclude-filter type="annotation"
                                 expression="org.springframework.stereotype.Controller"/>
         <context:exclude-filter type="annotation"

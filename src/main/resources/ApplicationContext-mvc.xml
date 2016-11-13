@@ -36,7 +36,7 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <!-- 开启controller注解支持 ,并且支持控制器增强advice-->
+    <!-- 开启controller注解支持,use-default-filters,不使用默认的扫描过滤配置 ,并且支持控制器增强advice-->
     <context:component-scan base-package="ezbase.system" use-default-filters="false">
         <context:include-filter type="annotation"
                                 expression="org.springframework.stereotype.Controller"/>
