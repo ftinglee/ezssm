@@ -12,6 +12,6 @@ public interface RoleMapper extends IMapper<Role>{
 
     Integer deleteRoleMenus(String roleId);
 
-    Integer configMenus(@Param("roleId") String roleId,@Param("menus") List<Menu> menus);
+    Integer configMenus(@Param("roleId") String roleId,@Param("menus") List<String> menus);
 
 }

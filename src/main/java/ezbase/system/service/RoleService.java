@@ -4,6 +4,9 @@ import ezbase.system.mapper.RoleMapper;
 import ezbase.system.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class RoleService {
@@ -17,5 +20,11 @@ public class RoleService {
 
     public Integer delRole(String id) {
         return roleMapper.deleteById(id);
+    }
+
+    @Transactional
+    public Integer configMenus(String roleId,List<String> menus){
+        roleMapper.deleteRoleMenus(roleId);
+        return roleMapper.configMenus(roleId, menus);
     }
 }

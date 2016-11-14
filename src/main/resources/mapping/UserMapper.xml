@@ -40,11 +40,11 @@
     </delete>
 
     <insert id="configRoles">
-        insert into sys_user_role (user_id,role_id) values (
+        insert into sys_user_role (user_id,role_id) values
         <foreach collection="roles" item="item" index="index" separator="," >
-            #{userId},#{item}
+            (#{userId},#{item})
         </foreach>
-        )
+
     </insert>
 
 </mapper>
