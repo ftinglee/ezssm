@@ -1,6 +1,8 @@
 package ezbase.system.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>菜单实体</p>
@@ -18,7 +20,7 @@ public class Menu implements Serializable {
     private String useableFlag;
     private String delFlag;
 
-    private Menu parent;
+    private List<Menu> children = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -84,11 +86,28 @@ public class Menu implements Serializable {
         this.delFlag = delFlag;
     }
 
-    public Menu getParent() {
-        return parent;
+    public List<Menu> getChildren() {
+        return children;
     }
 
-    public void setParent(Menu parent) {
-        this.parent = parent;
+    public void setChildren(List<Menu> children) {
+        this.children = children;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Menu) {
+            Menu menu = (Menu) obj;
+            return (id.equals(menu.id));
+        }
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

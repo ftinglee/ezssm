@@ -8,4 +8,5 @@ public interface IMapper<T> {
 
     Integer deleteById(String id);
 
+    Integer update(T model);
 }

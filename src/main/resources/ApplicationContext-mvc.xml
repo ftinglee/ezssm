@@ -48,12 +48,20 @@
     <mvc:view-controller path="/" view-name="redirect:/home"/>
 
     <!--静态资源映射,js.css缓存一个月,img缓存三个月-->
+    <mvc:resources mapping="/static/**" location="/static/"/>
     <mvc:resources mapping="/lib/**" location="/lib/" cache-period="72000"/>
     <mvc:resources mapping="/css/**" location="/css/" cache-period="72000"/>
     <mvc:resources mapping="/img/**" location="/img/" cache-period="216000"/>
     <!--注意:这里不采用Web应用服务器默认的Servlet处理,使用上面的配置的spring mvc提供的静态资源映射-->
     <!--<mvc:default-servlet-handler />-->
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/*"/>
+            <bean class="ezbase.core.interceptor.SecurityInterceptor"/>
+        </mvc:interceptor>
+
+    </mvc:interceptors>
     <!-- 视图解析器- -->
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
         <property name="contentNegotiationManager">
@@ -86,5 +94,20 @@
                 <bean class="com.alibaba.fastjson.support.spring.FastJsonJsonView" />
             </list>
         </property>
+    </bean>
+
+    <!--配置全局异常处理,继承自SimpleMappingExceptionResolver-->
+    <bean id="globalMappingExceptionResolver" class="ezbase.core.GlobalMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.Exception">error</prop>
+                <prop key="java.lang.Throwable">error</prop>
+            </props>
+        </property>
+
+        <property name="defaultErrorView" value="error"/>
+        <property name="exceptionAttribute" value="exception"/>
+
+        <property name="warnLogCategory" value="ezbase.core.GlobalMappingExceptionResolver"/>
     </bean>
 </beans>

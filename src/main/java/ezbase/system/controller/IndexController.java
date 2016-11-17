@@ -1,9 +1,7 @@
-/**
- * Created by LeeZhao on 16/10/11.
- **/
 package ezbase.system.controller;
 
 import ezbase.core.utils.EncryptUtil;
+import ezbase.core.utils.MenuUtil;
 import ezbase.system.model.User;
 import ezbase.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,22 +9,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-/**
- * <p>初始化</p>
- * @author LeeZhao
- * @date 16/10/11
- * @version 1.0
- **/
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
-public class IndexController {
+public class IndexController{
 
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private HttpServletRequest request;
+
     @RequestMapping(value = "/home")
     public String index(Model model){
-        model.addAttribute("msg","welcome to my home");
-        return "login";
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user",user);
+        model.addAttribute("menus", MenuUtil.combineMenus(user.getRoles()));
+        return "index";
     }
 
     @RequestMapping(value = "/login")
@@ -36,8 +35,8 @@ public class IndexController {
             User user = userService.getByUsername(formUser.getUsername());
             if(user == null){
                 model.addAttribute("msg","用户不存在");
-            }else if(formUser.getPassword().equals(EncryptUtil.encrypt(user.getPassword() + user.getSalt()))){
-                model.addAttribute("user",user);
+            }else if(user.getPassword().equals(EncryptUtil.encrypt(formUser.getPassword() + user.getSalt()))){
+                request.getSession().setAttribute("user",user);
                 passChecked = true;
             }else {
                 model.addAttribute("msg","密码错误");
@@ -45,6 +44,6 @@ public class IndexController {
         }else {
             model.addAttribute("msg","用户名或密码不能为空");
         }
-        return passChecked ? "index" : "login";
+        return passChecked ? "redirect:/home" : "login";
     }
 }

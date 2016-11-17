@@ -27,6 +27,9 @@ public class UserService {
         return userMapper.deleteById(id);
     }
 
+    public Integer updateUser(User user){
+        return userMapper.update(user);
+    }
     @Transactional
     public Integer configRoles(String userId,List<String> roles){
         userMapper.deleteUserRoles(userId);

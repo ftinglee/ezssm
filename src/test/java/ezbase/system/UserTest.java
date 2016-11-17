@@ -2,6 +2,7 @@ package ezbase.system;
 
 import com.alibaba.fastjson.JSON;
 import ezbase.BaseTest;
+import ezbase.core.utils.EncryptUtil;
 import ezbase.core.utils.UuidUtil;
 import ezbase.system.model.User;
 import ezbase.system.service.UserService;
@@ -37,6 +38,13 @@ public class UserTest extends BaseTest {
     @Test
     public void testDelUser() {
         Assert.isTrue(userService.delUser("12") == 1);
+    }
+
+    @Test
+    public void testUpdateUser() {
+        User user = userService.getByUsername("ftinglee");
+        user.setPassword(EncryptUtil.encrypt("ftinglee" + user.getSalt()));
+        Assert.isTrue(userService.updateUser(user) == 1);
     }
 
     @Test
