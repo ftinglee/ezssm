@@ -14,7 +14,8 @@ public class Menu implements Serializable {
     private String id;
     private String name;
     private String parentId;
-    private Integer Sort;
+    private Integer sort;
+    private String icon;
     private String href;
     private String remarks;
     private String useableFlag;
@@ -47,11 +48,11 @@ public class Menu implements Serializable {
     }
 
     public Integer getSort() {
-        return Sort;
+        return sort;
     }
 
     public void setSort(Integer sort) {
-        Sort = sort;
+        this.sort = sort;
     }
 
     public String getHref() {
@@ -109,5 +110,13 @@ public class Menu implements Serializable {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

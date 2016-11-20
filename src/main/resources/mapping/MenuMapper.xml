@@ -8,6 +8,7 @@
         <result column="name" property="name"/>
         <result column="parent_id" property="parentId"/>
         <result column="sort" property="sort"/>
+        <result column="icon" property="icon"/>
         <result column="href" property="href"/>
         <result column="remarks" property="remarks"/>
         <result column="useable_flag" property="useableFlag"/>
@@ -19,8 +20,8 @@
     </select>
 
     <insert id="insert" parameterType="Menu">
-        insert into sys_menu (id,name,parent_id,sort,href,remarks,useable_flag,del_flag) values (
-        #{id},#{name},#{parentId},#{sort},#{href},#{remarks},#{useableFlag},#{delFlag}
+        insert into sys_menu (id,name,parent_id,sort,icon,href,remarks,useable_flag,del_flag) values (
+        #{id},#{name},#{parentId},#{sort},#{icon},#{href},#{remarks},#{useableFlag},#{delFlag}
         )
     </insert>
 
