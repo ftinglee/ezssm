@@ -69,7 +69,7 @@ body {
 }
 .content-wrapper {
   min-height: 100%;
-  background-color: #ecf0f5;
+  background-color: #ffffff;
   z-index: 800;
 }
 /* Fixed layout */
@@ -853,7 +853,28 @@ a:focus {
   color: #444;
 }
 
+/*
+ * bootstrap table
+ */
+.content .bootstrap-table .fixed-table-header,
+.content .clearfix{
+  background-color: #f5f6fa;
+}
+.content .clearfix{
+  border-bottom: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+}
+.fixed-table-container{
+  border: 1px solid #dddddd;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+}
 
+.fixed-table-pagination div.pagination .pagination {
+  margin: 0 15px;
+}
 /*
  * skin
  */

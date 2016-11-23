@@ -151,7 +151,7 @@ and some style inspired by aliyun console
                     <c:if test="${menu.children[0] != null}">
                     <ul class="treeview-menu">
                         <c:forEach var="menu" items="${menu.children}">
-                            <li><a href="#" data-container="body" data-toggle="tooltip" title="${menu.name}" data-placement="right"><i class="fa ${menu.icon}"></i><span>${menu.name}</span></a></li>
+                            <li><a href="${ctx}${menu.href}" data-container="body" data-toggle="tooltip" title="${menu.name}" data-placement="right"><i class="fa ${menu.icon}"></i><span>${menu.name}</span></a></li>
                         </c:forEach>
                     </ul>
                     </c:if>

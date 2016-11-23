@@ -1,7 +1,7 @@
 package ezbase.system.controller;
 
+import ezbase.core.manager.SessionManager;
 import ezbase.core.utils.EncryptUtil;
-import ezbase.core.utils.SessionUtil;
 import ezbase.system.model.User;
 import ezbase.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,21 +9,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
-
 @Controller
 public class IndexController{
 
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private HttpServletRequest request;
-
     @RequestMapping(value = "/home")
     public String index(Model model){
-        model.addAttribute("user",SessionUtil.getSessionAttribute(request,SessionUtil.USER));
-        model.addAttribute("menus",SessionUtil.getSessionAttribute(request,SessionUtil.MENUS));
+        model.addAttribute("user",SessionManager.getSessionAttribute(SessionManager.USER));
+        model.addAttribute("menus",SessionManager.getSessionAttribute(SessionManager.MENUS));
         return "index";
     }
 
@@ -36,7 +31,7 @@ public class IndexController{
                 model.addAttribute("msg","用户不存在");
             }else if(user.getPassword().equals(EncryptUtil.encrypt(formUser.getPassword() + user.getSalt()))){
 
-                SessionUtil.addUserSession(request,user);
+                SessionManager.addUserSession(user);
 
                 passChecked = true;
             }else {

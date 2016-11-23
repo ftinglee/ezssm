@@ -57,8 +57,15 @@
 
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/*"/>
-            <bean class="ezbase.core.interceptor.SecurityInterceptor"/>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/static/**"/>
+            <mvc:exclude-mapping path="/lib/**"/>
+            <mvc:exclude-mapping path="/css/**"/>
+            <mvc:exclude-mapping path="/img/**"/>
+            <mvc:exclude-mapping path="/login"/>
+            <bean class="ezbase.core.interceptor.SecurityInterceptor">
+                <property name="redirectionUrl" value="/login"/>
+            </bean>
         </mvc:interceptor>
 
     </mvc:interceptors>

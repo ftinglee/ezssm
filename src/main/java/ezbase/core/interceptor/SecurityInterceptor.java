@@ -13,19 +13,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SecurityInterceptor implements HandlerInterceptor{
+
+    private String redirectionUrl;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
-
-        if(request.getRequestURI().endsWith("/login")){
-            return true;
-        }
 
         HttpSession session = request.getSession();
         if (session.getAttribute("user") != null) {
             return true;
         } else if (!(request.getHeader("accept").contains("application/json")  || (request.getHeader("X-Requested-With")!= null
                 && request.getHeader("X-Requested-With").contains("XMLHttpRequest") ))) {
-            response.sendRedirect("login");
+            response.sendRedirect(request.getContextPath()+redirectionUrl);
         }else {
             try {
                 PrintWriter writer = response.getWriter();
@@ -38,7 +37,7 @@ public class SecurityInterceptor implements HandlerInterceptor{
                 e.printStackTrace();
             }
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -49,5 +48,13 @@ public class SecurityInterceptor implements HandlerInterceptor{
     @Override
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
 
+    }
+
+    public String getRedirectionUrl() {
+        return redirectionUrl;
+    }
+
+    public void setRedirectionUrl(String redirectionUrl) {
+        this.redirectionUrl = redirectionUrl;
     }
 }
