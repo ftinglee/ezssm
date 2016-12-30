@@ -52,6 +52,8 @@
     <mvc:resources mapping="/lib/**" location="/lib/" cache-period="72000"/>
     <mvc:resources mapping="/css/**" location="/css/" cache-period="72000"/>
     <mvc:resources mapping="/img/**" location="/img/" cache-period="216000"/>
+    <!--用户上传的文件资源不缓存-->
+    <mvc:resources mapping="/file/**" location="/file/" cache-period="0"/>
     <!--注意:这里不采用Web应用服务器默认的Servlet处理,使用上面的配置的spring mvc提供的静态资源映射-->
     <!--<mvc:default-servlet-handler />-->
 
@@ -66,6 +68,11 @@
             <bean class="ezbase.core.interceptor.SecurityInterceptor">
                 <property name="redirectionUrl" value="/login"/>
             </bean>
+        </mvc:interceptor>
+        <!--处理用户上传的资料文件-->
+        <mvc:interceptor>
+            <mvc:mapping path="/file/**"/>
+            <bean class="ezbase.core.interceptor.ResourceInterceptor"/>
         </mvc:interceptor>
 
     </mvc:interceptors>
@@ -117,4 +124,12 @@
 
         <property name="warnLogCategory" value="ezbase.core.GlobalMappingExceptionResolver"/>
     </bean>
+
+    <!---->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="maxUploadSize" value="10485760000"></property>
+        <property name="maxInMemorySize" value="40960"></property>
+    </bean>
+
 </beans>

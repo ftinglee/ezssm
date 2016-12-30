@@ -16,6 +16,27 @@
         select * from sys_role where id=#{id} and del_flag='0'
     </select>
 
+    <select id="countByParam" resultType="Integer" parameterType="Map">
+        select count(0) from sys_role where del_flag='0'
+        <if test="name != null">
+            and name = #{name},
+        </if>
+    </select>
+
+    <select id="listByParam" resultMap="baseMap" parameterType="Map">
+        select * from sys_role where del_flag='0'
+        <if test="name != null">
+            and name = #{name},
+        </if>
+        <if test="sort != null and order != null">
+            order by #{sort} #{order}
+        </if>
+        <if test="offset != null and limit != null">
+            limit #{offset},#{limit}
+        </if>
+
+    </select>
+
     <insert id="insert" parameterType="Role">
         insert into sys_role (id,name,remarks,del_flag) values (
         #{id},#{name},#{remarks},#{delFlag}
@@ -44,5 +65,22 @@
         </foreach>
 
     </insert>
+
+    <update id="update" parameterType="Role">
+        update sys_role
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="checkRoleExit"  resultType="Integer">
+        select count(0) from sys_role where name=#{name} and del_flag='0'
+    </select>
 
 </mapper>

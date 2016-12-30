@@ -112,4 +112,6 @@
         <!-- 配置监控统计拦截的filters -->
         <property name="filters" value="${druid.filters}"/>
     </bean>
+
+    <bean class="ezbase.core.utils.SpringUtil" scope="singleton"/>
 </beans>

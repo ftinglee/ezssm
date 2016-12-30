@@ -26,6 +26,7 @@ and some style inspired by aliyun console
 
     <!-- use include JSP instruction , not JSP action ,caz need share attributes between two jsp page   -->
     <%@ include file="common/base.jsp"%>
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -39,11 +40,11 @@ and some style inspired by aliyun console
         <!-- Main content -->
         <section class="content">
             <div id="toolbar">
-                <button id="add" class="btn btn-primary" onclick="javascript:document.location.href='${ctx}/user/a'">
-                    <i class="glyphicon glyphicon-plus"></i> 添加用户
+                <button id="add" class="btn btn-primary" onclick="javascript:document.location.href='${ctx}/role/a'">
+                    <i class="glyphicon glyphicon-plus"></i> 添加角色
                 </button>
                 <button id="remove" class="btn btn-danger" disabled>
-                    <i class="glyphicon glyphicon-trash"></i> 删除用户
+                    <i class="glyphicon glyphicon-trash"></i> 删除角色
                 </button>
             </div>
             <table id="table"
@@ -54,7 +55,7 @@ and some style inspired by aliyun console
                    data-id-field="id"
                    data-page-list="[10, 25, 50, 100, ALL]"
                    data-side-pagination="server"
-                   data-url="${ctx}/user/list"
+                   data-url="${ctx}/role/list"
                    data-response-handler="responseHandler"
                    data-query-params="queryParams" >
             </table>
@@ -63,58 +64,8 @@ and some style inspired by aliyun console
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-
 </div>
 <!-- ./wrapper -->
-
-<!-- 模态框（Modal） -->
-<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;
-                </button>
-                <h4 class="modal-title">
-                    添加用户
-                </h4>
-            </div>
-            <div class="modal-body">
-                <form id="userForm" class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">用户名</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="username" class="form-control" placeholder="用户名">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">姓名</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="name" class="form-control" placeholder="姓名">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPassword" class="col-sm-2 control-label">密码</label>
-                        <div class="col-sm-10">
-                            <input type="password" name="password" class="form-control" id="inputPassword"
-                                   placeholder="请输入密码">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">邮箱</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="email" class="form-control" placeholder="example@xx.com">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="confirmBtn btn btn-primary">提交</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
 
 <script src="${ctx}/lib/jQuery/jquery-2.2.3.min.js"></script>
 <script src="${ctx}/lib/bootstrap/js/bootstrap.min.js"></script>
@@ -123,7 +74,7 @@ and some style inspired by aliyun console
 <script src="${ctx}/lib/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="${ctx}/lib/bootstrap-table/bootstrap-table-locale-all.min.js"></script>
 
-<script src="${ctx}/lib/ez/user.js"></script>
+<script src="${ctx}/lib/ez/role.js"></script>
 
 </body>
 </html>

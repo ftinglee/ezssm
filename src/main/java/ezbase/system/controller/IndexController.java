@@ -1,5 +1,6 @@
 package ezbase.system.controller;
 
+import ezbase.core.ResponseMap;
 import ezbase.core.manager.SessionManager;
 import ezbase.core.utils.EncryptUtil;
 import ezbase.system.model.User;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class IndexController{
@@ -17,29 +20,37 @@ public class IndexController{
 
     @RequestMapping(value = "/home")
     public String index(Model model){
-        model.addAttribute("user",SessionManager.getSessionAttribute(SessionManager.USER));
-        model.addAttribute("menus",SessionManager.getSessionAttribute(SessionManager.MENUS));
-        return "index";
+        return "redirect:/system";
     }
 
-    @RequestMapping(value = "/login")
-    public String login(User formUser,Model model){
-        boolean passChecked = false;
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    public String toLogin(){
+        boolean passChecked = (SessionManager.getSession().getAttribute(SessionManager.USER)!=null);
+        return passChecked ? "redirect:/home" : "login";
+    }
+
+    @RequestMapping(value = "/logout",method = RequestMethod.GET)
+    public String logout(){
+        SessionManager.getSession().invalidate();
+        return "login";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    public ResponseMap login(User formUser){
         if(formUser.getUsername() != null && formUser.getPassword() != null) {
             User user = userService.getByUsername(formUser.getUsername());
-            if(user == null){
-                model.addAttribute("msg","用户不存在");
+            //用户不存在或者用户没有指定角色
+            if(user == null || user.getRoles().size()<1){
+                return ResponseMap.create().state(0).msg("用户不存在");
             }else if(user.getPassword().equals(EncryptUtil.encrypt(formUser.getPassword() + user.getSalt()))){
-
                 SessionManager.addUserSession(user);
-
-                passChecked = true;
+                return ResponseMap.create().state(1).msg("登陆成功");
             }else {
-                model.addAttribute("msg","密码错误");
+                return ResponseMap.create().state(0).msg("密码错误");
             }
         }else {
-            model.addAttribute("msg","用户名或密码不能为空");
+            return ResponseMap.create().state(0).msg("用户名或密码不能为空");
         }
-        return passChecked ? "redirect:/home" : "login";
     }
 }

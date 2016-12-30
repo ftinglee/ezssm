@@ -5,7 +5,6 @@ and some style inspired by aliyun console
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
@@ -26,40 +25,39 @@ and some style inspired by aliyun console
 <div class="wrapper">
 
     <!-- use include JSP instruction , not JSP action ,caz need share attributes between two jsp page   -->
-    <%@ include file="common/base.jsp"%>
+    <%@ include file="../common/base.jsp"%>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <ol class="breadcrumb">
                 <!-- currentMenu defined in common/base.jsp -->
-                <li><a href="#">总体概况</a></li>
+                <li><i class="fa ${currentMenu.icon}"></i> &nbsp;${currentMenu.name}&nbsp;<i class="fa fa-angle-right"></i>&nbsp;添加</li>
             </ol>
         </section>
 
         <!-- Main content -->
         <section class="content">
-            <div class="info-con">
-                <div class="header">操作系统信息</div>
-                <div><span>系统架构</span><span>${system.os.arch}</span></div>
-                <div><span>系统名称</span><span>${system.os.name}</span></div>
-                <div><span>系统版本</span><span>${system.os.version}</span></div>
-                <div><span>可用处理器数目</span><span>${system.os.availableProcessors}</span></div>
-            </div>
-
-            <div class="info-con">
-                <div class="header">虚拟机运行状态</div>
-                <div><span>总的内存量</span><span><fmt:formatNumber type="number" maxFractionDigits="2" groupingUsed="false" value="${system.runTime.totalMemory/1024/1024}"/> M</span></div>
-                <div><span>空闲内存量</span><span><fmt:formatNumber type="number" maxFractionDigits="2" groupingUsed="false" value="${system.runTime.freeMemory/1024/1024}"/> M</span></div>
-                <div><span>最大内存量</span><span><fmt:formatNumber type="number" maxFractionDigits="2" groupingUsed="false" value="${system.runTime.maxMemory/1024/1024}"/> M</span></div>
-            </div>
-
-            <div class="info-con">
-                <div class="header">数据库信息</div>
-                <div><span>名称</span><span>${system.db.name}</span></div>
-                <div><span>版本</span><span>${system.db.version}</span></div>
-            </div>
-
+            <form class="form-horizontal" role="form" method="post">
+                <div class="form-group">
+                    <label class="col-sm-offset-2 col-md-offset-2 col-xs-4 col-sm-2 col-md-2 control-label">名称</label>
+                    <div class="col-xs-8 col-sm-6 col-md-6">
+                        <input type="text" class="form-control" placeholder="名称" name="name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-offset-2 col-md-offset-2 col-xs-4 col-sm-2 col-md-2 control-label">备注</label>
+                    <div class="col-xs-8 col-sm-6 col-md-6">
+                        <textarea rows="3" class="form-control" placeholder="备注" name="remarks"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-md-offset-4 col-xs-12 col-sm-8 col-md-8">
+                        <button class="btn btn-default btn-left" onclick="javascript:history.back();">取消</button>
+                        <button type="submit" class="btn btn-primary">提交</button>
+                    </div>
+                </div>
+            </form>
         </section>
         <!-- /.content -->
     </div>
@@ -71,7 +69,12 @@ and some style inspired by aliyun console
 <script src="${ctx}/lib/jQuery/jquery-2.2.3.min.js"></script>
 <script src="${ctx}/lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="${ctx}/lib/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="${ctx}/lib/jquery-validation/jquery.validate.min.js"></script>
+<script src="${ctx}/lib/jquery-validation/localization/messages_zh.js"></script>
+
 <script src="${ctx}/lib/ez/app.js"></script>
+
+<script src="${ctx}/lib/ez/role.add.js"></script>
 
 </body>
 </html>

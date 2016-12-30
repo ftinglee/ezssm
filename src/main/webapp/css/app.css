@@ -699,7 +699,7 @@ a:focus {
   width: 90px;
   border: 3px solid;
   border-color: transparent;
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(60, 141, 188, 0.2);
 }
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header > p {
   z-index: 5;
@@ -856,15 +856,10 @@ a:focus {
 /*
  * bootstrap table
  */
-.content .bootstrap-table .fixed-table-header,
-.content .clearfix{
+.content .bootstrap-table .fixed-table-header{
   background-color: #f5f6fa;
 }
-.content .clearfix{
-  border-bottom: 1px solid #dddddd;
-  border-left: 1px solid #dddddd;
-  border-right: 1px solid #dddddd;
-}
+
 .fixed-table-container{
   border: 1px solid #dddddd;
   border-radius: 0;
@@ -875,6 +870,16 @@ a:focus {
 .fixed-table-pagination div.pagination .pagination {
   margin: 0 15px;
 }
+
+div.fixed-table-pagination{
+  padding-left: 15px;
+  padding-bottom: 15px;
+}
+
+div.pull-left.pagination-detail{
+  color: gray;
+}
+
 /*
  * skin
  */
@@ -910,7 +915,7 @@ a:focus {
 }
 @media (max-width: 767px) {
   .skin-blue .main-header .navbar .dropdown-menu li.divider {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(60, 141, 188, 0.1);
   }
   .skin-blue .main-header .navbar .dropdown-menu li a {
     color: #fff;
@@ -998,4 +1003,62 @@ a:focus {
   margin-top: -8px;
   border-width: 8px 8px 8px 0;
   border-right-color: #4b646f;
+}
+
+.ez.checkbox {
+  display: inline-block;
+  margin-right: 30px;
+}
+
+.btn-left{
+  margin-right: 20px;
+}
+
+.ez.prof-name {
+  font-size: xx-large;
+  padding: 10px 0;
+}
+
+.ez.prof-role {
+  font-size: large;
+  padding: 10px 0;
+  color: #666;
+}
+
+.ez.prof-tool {
+  float: right;
+  margin-left: 10px;
+}
+
+.ez .prof-title {
+  float: left;
+}
+
+.splitor{
+  border-bottom: 1px solid #ccc;
+  padding: 0 10px 10px 0;
+  margin-bottom: 10px;
+}
+
+.info-con{
+ padding-bottom: 10px;
+}
+
+.info-con .header{
+  background-color: #eee;
+  font-size: large;
+  padding: 10px 0 10px 10px;
+}
+
+.info-con div span{
+  display: inline-block;
+  margin: 8px 15px;
+}
+
+.info-con div span:first-child{
+  color: #333;
+  width: 180px;
+}
+.info-con div span:last-child{
+  color: #888;
 }

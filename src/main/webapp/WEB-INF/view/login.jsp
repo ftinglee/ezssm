@@ -26,7 +26,7 @@ style changed by metronic
 
 <div class="content">
     <!-- BEGIN LOGIN FORM -->
-    <form class="login-form" action="${ctx}/login" method="post">
+    <form class="login-form" role="form" method="post">
         <h3 class="form-title">登录</h3>
 
         <div class="alert alert-danger display-hide" hidden>
@@ -61,6 +61,14 @@ style changed by metronic
 </div>
 <div class="copyright"> 2016 © ezbase, All Rights Reserved</div>
 
+<script src="${ctx}/lib/jQuery/jquery-2.2.3.min.js"></script>
+<script src="${ctx}/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="${ctx}/lib/jquery-validation/jquery.validate.min.js"></script>
+<script src="${ctx}/lib/jquery-validation/localization/messages_zh.js"></script>
+<script>
+    var context = "${ctx}";
+</script>
+<script src="${ctx}/lib/ez/login.js"></script>
 </body>
 
 </html>

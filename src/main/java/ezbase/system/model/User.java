@@ -16,6 +16,7 @@ public class User implements Serializable {
     private String salt;
     private String name;
     private String email;
+    private String avatar;
     private String remarks;
     private String loginFlag;
     private String delFlag;
@@ -100,5 +101,13 @@ public class User implements Serializable {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

@@ -59,6 +59,8 @@ $(function () {
     });
 
   });
+
+  initGlobalLoadEvent();
 });
 
 function _init() {
@@ -79,7 +81,7 @@ function _init() {
       var neg = $('.main-header').outerHeight();
       var window_height = $(window).height();
       var sidebar_height = $(".sidebar").height();
-      $(".content-wrapper").css('min-height', window_height);
+      //$(".content-wrapper").css('min-height', window_height);
     },
     fixSidebar: function () {
       $(".sidebar").slimScroll({destroy: true}).height("auto");
@@ -89,7 +91,7 @@ function _init() {
         color: "rgba(0,0,0,0.2)",
         size: "3px"
       });
-    }
+    },
   };
 
   $.AdminLTE.pushMenu = {
@@ -157,4 +159,22 @@ function _init() {
         });
   };
 
+}
+
+function initGlobalLoadEvent(){
+
+  var $loading = $('.load-container');
+
+  // 添加ajax全局事件处理。
+  $(document).ajaxSend(function (e, jqXHR, options) {
+    $loading.fadeIn();
+  }).ajaxError(function (e, xhr, opts) {
+    $loading.fadeOut();
+  }).ajaxSuccess(function (e, xhr, opts) {
+    $loading.fadeOut();
+  }).ajaxComplete(function (e, jqXHR, options) {
+    $loading.fadeOut();
+  }).ajaxStop(function () {
+    $loading.fadeOut();
+  });
 }

@@ -31,11 +31,9 @@ public class InitDB  extends BaseTest {
     @Test
     public void testInitUser() {
         User user = new User();
-        user.setId(UuidUtil.generateId());
         user.setUsername("ftinglee");
         user.setName("Lee");
-        user.setSalt(UuidUtil.generateSalt());
-        user.setPassword(EncryptUtil.encrypt("ftinglee" + user.getSalt()));
+        user.setPassword("ftinglee");
         user.setLoginFlag("0");
         user.setDelFlag("0");
         userService.addUser(user);
