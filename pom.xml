@@ -33,11 +33,10 @@
       <version>3.1.0</version>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/taglibs/standard -->
     <dependency>
-      <groupId>taglibs</groupId>
-      <artifactId>standard</artifactId>
-      <version>1.1.2</version>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
     </dependency>
 
     <!-- spring -->
@@ -147,6 +146,20 @@
     <finalName>ezssm</finalName>
 
     <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+          <!--<warName>${project.build.finalName}</warName>-->
+          <warName>exssm</warName>
+          <!-- 打包时忽略目录 -->
+          <packagingExcludes>file/**,</packagingExcludes>
+          <includeEmptyDirectories>true</includeEmptyDirectories>
+        </configuration>
+      </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
