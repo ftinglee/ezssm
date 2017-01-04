@@ -108,12 +108,9 @@ body.hold-transition .main-header .logo {
 }
 /* Content */
 .content {
-  min-height: 250px;
   padding: 15px;
   margin-right: auto;
   margin-left: auto;
-  padding-left: 15px;
-  padding-right: 15px;
 }
 /* H1 - H6 font */
 h1,
@@ -1061,4 +1058,28 @@ div.pull-left.pagination-detail{
 }
 .info-con div span:last-child{
   color: #888;
+}
+
+.panel-primary {
+  border-color: #3c8dbc;
+}
+
+.panel-primary > .panel-heading {
+  background-color: #3c8dbc;
+  border-color: #3c8dbc;
+  color: #fff;
+}
+
+.panel .panel-body .treeview{
+  margin: -15px;
+}
+
+.panel .treeview .list-group {
+  margin-bottom: 0;
+}
+
+.panel .treeview .list-group .list-group-item{
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top:1px solid #ddd;
 }

@@ -81,7 +81,7 @@ function _init() {
       var neg = $('.main-header').outerHeight();
       var window_height = $(window).height();
       var sidebar_height = $(".sidebar").height();
-      //$(".content-wrapper").css('min-height', window_height);
+      $(".content-wrapper").css('min-height', window_height);
     },
     fixSidebar: function () {
       $(".sidebar").slimScroll({destroy: true}).height("auto");
@@ -91,7 +91,7 @@ function _init() {
         color: "rgba(0,0,0,0.2)",
         size: "3px"
       });
-    },
+    }
   };
 
   $.AdminLTE.pushMenu = {
